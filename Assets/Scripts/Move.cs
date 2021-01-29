@@ -7,7 +7,7 @@ public class Move : MonoBehaviour
     public int playerId;
     [SerializeField]
     private KeyCode upKey, downKey, leftKey, rightKey;
-    private float moveSpeed = 3;
+    private float moveSpeed = 5;
     private Vector2 dir = Vector2.zero;
     private Rigidbody2D rigidBody2D;
     private Collider2D myCollider;
