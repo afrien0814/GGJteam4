@@ -1,13 +1,7 @@
 fileFormatVersion: 2
-guid: f6584338828c1f14e95d51facb633fbc
+guid: e0a74c876735deb4c9798f69f9b91482
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: -3392885455431205278
-    second: wall1_0
-  - first:
-      213: 6644639944261141914
-    second: wall1_1
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -46,9 +40,9 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
@@ -103,49 +97,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: wall1_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 698.5
-        height: 720
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 26efe6197ac0ae0d0800000000000000
-      internalID: -3392885455431205278
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: wall1_1
-      rect:
-        serializedVersion: 2
-        x: 698
-        y: 0
-        width: 698.5
-        height: 720
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a958e0213d0863c50800000000000000
-      internalID: 6644639944261141914
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []
