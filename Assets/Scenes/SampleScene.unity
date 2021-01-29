@@ -214,7 +214,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &369067466
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -232,8 +232,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 0.16, y: 0.16}
+    oldSize: {x: 0.77, y: 0.74}
+    newSize: {x: 0.77, y: 0.74}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -279,6 +279,10 @@ MonoBehaviour:
   downKey: 0
   leftKey: 0
   rightKey: 0
+  dashKey: 0
+  dashCD: 1
+  dashForce: 5
+  facing: {x: 0, y: 0}
 --- !u!212 &369067469
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -318,12 +322,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: f45afc0772ad6bb46a5bfd152e59a5f8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 547a36c1d9dc86e488de244de5a2b541, type: 3}
   m_Color: {r: 0.08876253, g: 0.08317016, b: 0.8396226, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.16, y: 0.16}
+  m_Size: {x: 0.77, y: 0.74}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -437,7 +441,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &558160303
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -455,8 +459,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 0.16, y: 0.16}
+    oldSize: {x: 0.77, y: 0.74}
+    newSize: {x: 0.77, y: 0.74}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -502,6 +506,10 @@ MonoBehaviour:
   downKey: 0
   leftKey: 0
   rightKey: 0
+  dashKey: 0
+  dashCD: 1
+  dashForce: 5
+  facing: {x: 0, y: 0}
 --- !u!212 &558160306
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -541,12 +549,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: f45afc0772ad6bb46a5bfd152e59a5f8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5993ff8a7f83b4b4288998c91b473c86, type: 3}
   m_Color: {r: 0.5179534, g: 0.19842473, b: 0.8584906, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.16, y: 0.16}
+  m_Size: {x: 0.77, y: 0.74}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -604,8 +612,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 0.16, y: 0.16}
+    oldSize: {x: 0.77, y: 0.74}
+    newSize: {x: 0.77, y: 0.74}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -651,6 +659,10 @@ MonoBehaviour:
   downKey: 115
   leftKey: 97
   rightKey: 100
+  dashKey: 32
+  dashCD: 1
+  dashForce: 28
+  facing: {x: 0, y: 0}
 --- !u!212 &736176945
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -690,12 +702,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: f45afc0772ad6bb46a5bfd152e59a5f8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 547a36c1d9dc86e488de244de5a2b541, type: 3}
   m_Color: {r: 0.080322154, g: 0.8962264, b: 0.70817876, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.16, y: 0.16}
+  m_Size: {x: 0.77, y: 0.74}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -709,7 +721,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 736176941}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.53, y: -2.72, z: 0}
+  m_LocalPosition: {x: 0.1, y: -2.72, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1497450566}
@@ -1070,6 +1082,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: player1
+      objectReference: {fileID: 0}
+    - target: {fileID: 978405536754058518, guid: b9ffcb75014a57249a7e154d85aaa80d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 978405536754058539, guid: b9ffcb75014a57249a7e154d85aaa80d,
         type: 3}
