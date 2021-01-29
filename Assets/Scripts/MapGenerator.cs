@@ -6,20 +6,13 @@ using UnityEngine.Tilemaps;
 using System.IO;
 public class MapGenerator : MonoBehaviour
 {
-    class tile_info{
-
-    }
-    //List<string[]> map = new List<string[]>();
-    //[Tooltip("每一個方格的大小(unity內部單位)")]
-    //public Vector2 unit_scale;
+    [Tooltip("this quantity should be manually calculated by map author to fit a specific map")]
+    public Vector2 offset;
     public List<Vector2> empty_grid = new List<Vector2>();
-    public GameObject[] prefab_list;//public GameObject outer_map_obj;
+    public GameObject[] prefab_list;
     public int[] prefab_amount;
-    //public string[] prefab_name;
-    //public int width = 0;
-    //public int length = 0;
     void Awake(){
-        //read_map();
+        read_map();
         //generate_map();
         //generate_random();
     }
@@ -61,7 +54,8 @@ public class MapGenerator : MonoBehaviour
         BoundsInt bounds = tilemap.cellBounds;
         TileBase[] allTiles = tilemap.GetTilesBlock(bounds);bool fisrt = true;
         Grid gr = tilemap.gameObject.GetComponentInParent<Grid>();
-        
+        print("x bound"+bounds.size.x+"y bound"+bounds.size.y);
+        print(gr.WorldToCell(new Vector3(1,1,0)));
         for (int x = 0; x < bounds.size.x; x++) {
             for (int y = 0; y < bounds.size.y; y++) {
                 TileBase tile = allTiles[x + y * bounds.size.x];
@@ -76,7 +70,7 @@ public class MapGenerator : MonoBehaviour
                     //print("x"+tilemap.CellToLocal(new Vector3Int(x,y,0)).x+"y"+tilemap.CellToLocal(new Vector3Int(x,y,0)).y+"x*y"+bounds.size.x*bounds.size.y);
                     //print("x"+tilemap.CellToLocal(+"y"+tilemap.CellToWorld(new Vector3Int(x,y,0)).y+"x*y"+bounds.size.x*bounds.size.y);
                     GameObject gm = Instantiate(red);
-                    gm.transform.position = new Vector3(x*gr.cellSize.x,y*gr.cellSize.y,0);
+                    gm.transform.position = new Vector3((x+offset.x)*gr.cellSize.x,(y+offset.y)*gr.cellSize.y,0);
                 } else {
                     Debug.Log("x:" + x + " y:" + y + " tile: (null)");
                     //print("x"+tilemap.CellToLocal(new Vector3Int(x,y,0)).x+"y"+tilemap.CellToLocal(new Vector3Int(x,y,0)).y+"x*y"+bounds.size.x*bounds.size.y);
