@@ -187,6 +187,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &500788762 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8078544948621384140, guid: 38c1dfa3ee43f3441963835335603be7,
+    type: 3}
+  m_PrefabInstance: {fileID: 9047519938607443950}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &559060039
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11000,6 +11006,24 @@ TilemapCollider2D:
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0.00001
+--- !u!1 &1446445801 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7866711999817869561, guid: d53e94a692e50a34f9ebb8870462d6d9,
+    type: 3}
+  m_PrefabInstance: {fileID: 6971521941524186959}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1691675321 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4458381398804520372, guid: 4772c644cfd298f44a1a6c255221b6bf,
+    type: 3}
+  m_PrefabInstance: {fileID: 3480337911870727498}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1797976446 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 978405536754058518, guid: b9ffcb75014a57249a7e154d85aaa80d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1991410183}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1859465110
 GameObject:
   m_ObjectHideFlags: 0
@@ -13799,6 +13823,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4274780828745894579, guid: b379f2377896cec42a1bf5ba910d5bbb,
+        type: 3}
+      propertyPath: players.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274780828745894579, guid: b379f2377896cec42a1bf5ba910d5bbb,
+        type: 3}
+      propertyPath: players.Array.data[0]
+      value: 
+      objectReference: {fileID: 1797976446}
+    - target: {fileID: 4274780828745894579, guid: b379f2377896cec42a1bf5ba910d5bbb,
+        type: 3}
+      propertyPath: players.Array.data[1]
+      value: 
+      objectReference: {fileID: 500788762}
+    - target: {fileID: 4274780828745894579, guid: b379f2377896cec42a1bf5ba910d5bbb,
+        type: 3}
+      propertyPath: players.Array.data[2]
+      value: 
+      objectReference: {fileID: 1691675321}
+    - target: {fileID: 4274780828745894579, guid: b379f2377896cec42a1bf5ba910d5bbb,
+        type: 3}
+      propertyPath: players.Array.data[3]
+      value: 
+      objectReference: {fileID: 1446445801}
     - target: {fileID: 4274780828745894580, guid: b379f2377896cec42a1bf5ba910d5bbb,
         type: 3}
       propertyPath: m_Name

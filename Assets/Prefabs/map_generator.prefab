@@ -104,7 +104,7 @@ MonoBehaviour:
   - 255
   - 0
   - 128
-  - 101
+  - 100
   outer_map_obj: {fileID: 0}
   free_position_list: []
   width: 0
