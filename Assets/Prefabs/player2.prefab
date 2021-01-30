@@ -114,6 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62cd2e0bd6e4ccc439c3d907c17595a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skill_info: {fileID: 8078544948621384143}
   chase_info: {fileID: 3022711740068891759}
 --- !u!1 &4199094375140415713
 GameObject:
@@ -417,9 +418,12 @@ MonoBehaviour:
   downKey: 106
   leftKey: 104
   rightKey: 107
-  dashKey: 0
-  dashForce: 25
+  useKey: 0
+  dashSpeed: 7.5
+  dashTime: 5
+  jumping: 0
   facing: {x: 0, y: 0}
+  item_holding: 0
 --- !u!50 &8078544948621384179
 Rigidbody2D:
   serializedVersion: 4

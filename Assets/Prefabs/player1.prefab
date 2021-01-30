@@ -105,9 +105,12 @@ MonoBehaviour:
   downKey: 115
   leftKey: 97
   rightKey: 100
-  dashKey: 0
-  dashForce: 25
+  useKey: 0
+  dashSpeed: 7.5
+  dashTime: 5
+  jumping: 0
   facing: {x: 0, y: 0}
+  item_holding: 0
 --- !u!50 &978405536754058537
 Rigidbody2D:
   serializedVersion: 4
@@ -466,4 +469,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62cd2e0bd6e4ccc439c3d907c17595a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skill_info: {fileID: 978405536754058517}
   chase_info: {fileID: 6088280805911515317}
