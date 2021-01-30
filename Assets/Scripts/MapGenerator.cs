@@ -98,6 +98,10 @@ public class MapGenerator : MonoBehaviour
             }
         }
         //generate initial items to map
+        
+    }
+    public bool has_generated_item =false;
+    public void init_generate_items(){
         for (int i = 0; i < generated_items_amount.Length; i++)
         {
             for (int j = 0; j < generated_items_amount[i]; j++)
@@ -105,10 +109,11 @@ public class MapGenerator : MonoBehaviour
                 generate_random_element(item_prefab_list[i]);
             }
         }
+        has_generated_item = true;
     }
     int index;
     void refill_map_item(){
-        if(refill_timer <= 0){
+        if(refill_timer <= 0 && has_generated_item){
             refill_timer = refill_timer_max;
             for (int i = 0; i < generated_items_amount.Length; i++)
             {
