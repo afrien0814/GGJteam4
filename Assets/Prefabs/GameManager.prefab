@@ -43,11 +43,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c489d1643e86ec74a876fc7633239a75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  countdownTimer: 3
   timer: 180
+  gaming: 0
   players:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   target_list: 
+  winnerId: 0
   minimum_radial_distance: 5

@@ -531,6 +531,50 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5640386679051668221, guid: 16e9ecfdea1f8cf46a4ca92aee52f6f7,
+        type: 3}
+      propertyPath: generated_item_list.Array.data[0]
+      value: 
+      objectReference: {fileID: 7531538226121884600, guid: 1375b93c900af464d966ca01b20b561f,
+        type: 3}
+    - target: {fileID: 5640386679051668221, guid: 16e9ecfdea1f8cf46a4ca92aee52f6f7,
+        type: 3}
+      propertyPath: generated_item_list.Array.data[1]
+      value: 
+      objectReference: {fileID: 7531538226121884600, guid: ace363961284d794b87362b016f9bda5,
+        type: 3}
+    - target: {fileID: 5640386679051668221, guid: 16e9ecfdea1f8cf46a4ca92aee52f6f7,
+        type: 3}
+      propertyPath: generated_item_list.Array.data[2]
+      value: 
+      objectReference: {fileID: 7531538226121884600, guid: d06c433bcb3d3594587c509064cd9a88,
+        type: 3}
+    - target: {fileID: 5640386679051668221, guid: 16e9ecfdea1f8cf46a4ca92aee52f6f7,
+        type: 3}
+      propertyPath: generated_item_list.Array.data[3]
+      value: 
+      objectReference: {fileID: 7531538226121884600, guid: 5a7bb5d2a77c8894993260458f404755,
+        type: 3}
+    - target: {fileID: 5640386679051668221, guid: 16e9ecfdea1f8cf46a4ca92aee52f6f7,
+        type: 3}
+      propertyPath: generated_items_amount.Array.data[0]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5640386679051668221, guid: 16e9ecfdea1f8cf46a4ca92aee52f6f7,
+        type: 3}
+      propertyPath: generated_items_amount.Array.data[1]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5640386679051668221, guid: 16e9ecfdea1f8cf46a4ca92aee52f6f7,
+        type: 3}
+      propertyPath: generated_items_amount.Array.data[2]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5640386679051668221, guid: 16e9ecfdea1f8cf46a4ca92aee52f6f7,
+        type: 3}
+      propertyPath: generated_items_amount.Array.data[3]
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5640386679051668222, guid: 16e9ecfdea1f8cf46a4ca92aee52f6f7,
         type: 3}
       propertyPath: m_Name

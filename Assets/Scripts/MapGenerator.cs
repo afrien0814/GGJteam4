@@ -11,11 +11,26 @@ public class MapGenerator : MonoBehaviour
     public List<string[]> map = new List<string[]>();
     [Tooltip("每一個方格的大小(unity內部單位)")]
     public Vector2 unit_scale;
-    public GameObject[] prefab_list;public string[] prefab_name;
+    [Tooltip("prefab_list內放置牆壁prefab")]
+    public GameObject[] prefab_list;
+    [Tooltip("牆壁prefab 在的灰階：0～255")]
+    public string[] prefab_name;
+    [Tooltip("沒有放牆壁的格子")]
     public List<Vector2> free_position_list = new List<Vector2>();
+    [Tooltip("讀取地圖時取得的長度及寬度")]
     public int width,length;
-
-    public GameObject[] item_list;
+    [Tooltip("生成物品prefab列表")]
+    public GameObject[] item_prefab_list;
+    [Tooltip("生成物件的清單")]
+    public List<GameObject> generated_item_list = new List<GameObject>();
+    [Tooltip("生成物件的預定數量")]
+    public int[] generated_items_amount;
+    [Tooltip("重新填滿物件清單的間隔時間")]
+    public float refill_timer; float refill_timer_max;
+    [Tooltip("有幾張地圖可選?")]
+    public int max_amount;
+    [Tooltip("指定載入之地圖編號，指定-1為隨機選取")]
+    public int specify_map_id = -1;
     void Awake(){
         if(mapGenerator == null){
             mapGenerator = this;
@@ -23,17 +38,23 @@ public class MapGenerator : MonoBehaviour
             Destroy(this.gameObject);
         }   
         // GameManager.gameManager.map_name;
-        read_map(/*GameManager.gameManager.map_name*/"map3.csv");
-        generate_map();
+        refill_timer_max = refill_timer;
+        if(specify_map_id == -1){
+            read_map(/*GameManager.gameManager.map_name*/"map"+(Random.Range(0,max_amount) +1 )+".csv");
+        }else{
+            read_map(/*GameManager.gameManager.map_name*/"map"+specify_map_id+".csv");
+        }
+        
+        
     }
     void Start()
     {
-        
+        generate_map();
     }
 
     void Update()
     {
-        
+        refill_map_item();
     }
     void read_map(string map_name){
         StreamReader sr = new StreamReader(Application.streamingAssetsPath + "/" + map_name);
@@ -68,6 +89,7 @@ public class MapGenerator : MonoBehaviour
                         if((map[i])[j] != prefab_name[0]){//prefab_name[0] => blank
                             GameObject new_pref = Instantiate(prefab_list[prefab_index]);
                             new_pref.transform.position = new Vector3(0,0,0)+new Vector3(j*unit_scale.y,i*unit_scale.x,0);
+                            new_pref.transform.SetParent(this.gameObject.transform);
                         }else{
                             free_position_list.Add(new Vector2(j*unit_scale.y,i*unit_scale.x));
                         }
@@ -75,41 +97,86 @@ public class MapGenerator : MonoBehaviour
                 }
             }
         }
-    }
-    void generate_random(){
-        // int rand;
-        // //i=哪個prefab,j=重複生成次數
-        // for(int i=0;i < prefab_list.Length;i++){
-        //     for(int j=0;j < prefab_amount[i];j++){
-        //         if(empty_grid.Count!=0){
-        //             rand = Random.Range(0,empty_grid.Count);
-        //             GameObject new_pref = Instantiate(prefab_list[i]);
-        //             new_pref.transform.position = new Vector3(empty_grid[rand].x,empty_grid[rand].y,0);
-        //         }
-        //     }
-        // }
-    }
-    public GameObject red , detector;
-    public  void get_free_coordinate_list(){
-        print(map[0].Length + " / " + map.Count);
-        for (int x = 0; x < map[0].Length; x++) {
-            for (int y = 0; y < map.Count; y++) {
-                //Ray myRay =  new Ray(new Vector3(unit_scale.x*x,unit_scale.y*y,-5),Vector3.back);
-                //Ray2D myRay = new Ray2D(new Vector2(unit_scale.x*x,unit_scale.y*y),new Vector2(100,100));
-                //Ray myRay = Camera.main.ScreenPointToRay(new Vector3(unit_scale.x*x,unit_scale.y*y,-2));
-                //print("ray  "+myRay.origin + " /dir " + myRay.direction);
-                //RaycastHit2D hit = Physics2D.Raycast(myRay.origin, myRay.direction, 10, -1);
-                //RaycastHit2D[] hit = Physics2D.RaycastAll(myRay.origin, myRay.direction);
-                //if (hit.Length != 0)
-                //{
-                    //print(new Vector3(unit_scale.x*x,unit_scale.y*y,0).ToString()+"has object"+hit[0].collider.gameObject.activeSelf);
-                    //GameObject gm = Instantiate(red);
-                    //gm.transform.position = new Vector3(unit_scale.x*x,unit_scale.y*y,0);
-                //}
-
+        //generate initial items to map
+        for (int i = 0; i < generated_items_amount.Length; i++)
+        {
+            for (int j = 0; j < generated_items_amount[i]; j++)
+            {
+                generate_random_element(item_prefab_list[i]);
             }
         }
     }
+    int index;
+    void refill_map_item(){
+        if(refill_timer <= 0){
+            refill_timer = refill_timer_max;
+            for (int i = 0; i < generated_items_amount.Length; i++)
+            {
+                for (int j = 0; j < generated_items_amount[i]; j++)
+                {
+                    index = 0;
+                    for (int k = 0; k < i; k++)
+                    {
+                        index += generated_items_amount[k];
+                    }
+                    index += j;
+                    if(generated_item_list[index] == null){
+                        generate_random_element(item_prefab_list[i]);
+                    }
+                }
+            }
+        }else{
+            refill_timer -= Time.deltaTime;
+        }
+        
+    }
+
+    public void generate_random_element(GameObject gene_item){
+        int rand = Random.Range(0,free_position_list.Count);
+        bool check;int iter = 0;
+        Vector3 gene_pos;
+        do{
+            gene_pos = new Vector3(free_position_list[rand].x,free_position_list[rand].y,0);
+            check = true;
+            iter++;
+            for (int i = 0; i < GameManager.gameManager.players.Length; i++)
+            {
+                if((GameManager.gameManager.players[i].transform.position-gene_pos).magnitude <= GameManager.gameManager.minimum_radial_distance){
+                    check = false;
+                }
+            }
+            for (int i = 0; i < generated_item_list.Count; i++)
+            {
+                if((generated_item_list[i].transform.position-gene_pos).magnitude <= GameManager.gameManager.minimum_radial_distance){
+                    check = false;
+                }
+            }
+        }while(!check && iter <500 ); // max => 500 times
+        
+        GameObject new_pref = Instantiate(gene_item);
+        new_pref.transform.position = gene_pos;
+        generated_item_list.Add(new_pref);
+    }
+    // public GameObject red , detector;
+    // public  void get_free_coordinate_list(){
+    //     print(map[0].Length + " / " + map.Count);
+    //     for (int x = 0; x < map[0].Length; x++) {
+    //         for (int y = 0; y < map.Count; y++) {
+    //             //Ray myRay =  new Ray(new Vector3(unit_scale.x*x,unit_scale.y*y,-5),Vector3.back);
+    //             //Ray2D myRay = new Ray2D(new Vector2(unit_scale.x*x,unit_scale.y*y),new Vector2(100,100));
+    //             //Ray myRay = Camera.main.ScreenPointToRay(new Vector3(unit_scale.x*x,unit_scale.y*y,-2));
+    //             //print("ray  "+myRay.origin + " /dir " + myRay.direction);
+    //             //RaycastHit2D hit = Physics2D.Raycast(myRay.origin, myRay.direction, 10, -1);
+    //             //RaycastHit2D[] hit = Physics2D.RaycastAll(myRay.origin, myRay.direction);
+    //             //if (hit.Length != 0)
+    //             //{
+    //                 //print(new Vector3(unit_scale.x*x,unit_scale.y*y,0).ToString()+"has object"+hit[0].collider.gameObject.activeSelf);
+    //                 //GameObject gm = Instantiate(red);
+    //                 //gm.transform.position = new Vector3(unit_scale.x*x,unit_scale.y*y,0);
+    //             //}
+    //         }
+    //     }
+    // }
 
 }
 

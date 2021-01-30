@@ -667,11 +667,6 @@ PrefabInstance:
       propertyPath: players.Array.data[3]
       value: 
       objectReference: {fileID: 739110288}
-    - target: {fileID: 4274780828745894579, guid: b379f2377896cec42a1bf5ba910d5bbb,
-        type: 3}
-      propertyPath: minimum_radial_distance
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 4274780828745894580, guid: b379f2377896cec42a1bf5ba910d5bbb,
         type: 3}
       propertyPath: m_Name
@@ -751,11 +746,6 @@ PrefabInstance:
         type: 3}
       propertyPath: detector
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5640386679051668221, guid: 16e9ecfdea1f8cf46a4ca92aee52f6f7,
-        type: 3}
-      propertyPath: prefab_name.Array.data[3]
-      value: 101
       objectReference: {fileID: 0}
     - target: {fileID: 5640386679051668222, guid: 16e9ecfdea1f8cf46a4ca92aee52f6f7,
         type: 3}
