@@ -12,7 +12,6 @@ public class Chaser : MonoBehaviour
     {
         Move parent = transform.parent.GetComponent<Move>();
         playerId = parent.playerId;
-
         targetId = parent.targetId;
     }
 
