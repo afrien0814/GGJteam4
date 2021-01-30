@@ -9,6 +9,7 @@ public class ShowTutorial : MonoBehaviour
     void Start()
     {
         GameManager.gameManager.callUI += OnGameStart;
+        transform.localScale = Vector2.zero;
     }
 
     public void OnGameStart(string callName)

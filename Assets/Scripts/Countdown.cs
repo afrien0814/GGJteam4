@@ -12,6 +12,7 @@ public class Countdown : MonoBehaviour
     {
         GameManager.gameManager.callUI += CountdownStart;
         text = transform.GetChild(0).GetComponent<Text>();
+        transform.localScale = Vector2.zero;
     }
 
     private void Update()

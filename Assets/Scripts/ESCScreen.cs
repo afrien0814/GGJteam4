@@ -1,22 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class GameOver : MonoBehaviour
+public class ESCScreen : MonoBehaviour
 {
-
+    // Start is called before the first frame update
     void Start()
     {
-        GameManager.gameManager.callUI += OnGameEnd;
         transform.localScale = Vector2.zero;
+        GameManager.gameManager.callUI += OnGamePause;
     }
 
-    public void OnGameEnd(string callName)
+    // Update is called once per frame
+    void OnGamePause(string callName)
     {
         if (callName != this.name) return;
-        //change icon here
-        transform.localScale = Vector3.one;
-        
+        transform.localScale = Vector2.one;
     }
     public void OnRestartClick()
     {
@@ -25,6 +25,7 @@ public class GameOver : MonoBehaviour
     }
     public void OnExitClick()
     {
+        
         Application.Quit();
     }
 }
