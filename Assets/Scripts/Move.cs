@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Move : MonoBehaviour
 {
-    public int playerId, target;
+    public int playerId, targetId;
     [SerializeField]
     private KeyCode upKey, downKey, leftKey, rightKey, dashKey;
     private float moveSpeed = 5f;
