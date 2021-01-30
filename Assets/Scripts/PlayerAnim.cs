@@ -19,7 +19,7 @@ public class PlayerAnim : MonoBehaviour
     {
         anim.SetFloat("velocity", get_velocity.velocity.magnitude);
         //anim.SetTrigger("skill",true);
-        //anim.SetBool("find_target", chase_info.chasing);
-        //anim.SetBool("chased", chase_info.isChased);
+        anim.SetBool("find_target", chase_info.chasing);
+        anim.SetBool("chased", chase_info.isChased);
     }
 }
