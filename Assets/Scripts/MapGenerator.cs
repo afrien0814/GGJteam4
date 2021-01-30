@@ -7,13 +7,21 @@ using System.Drawing;
 using System.IO;
 public class MapGenerator : MonoBehaviour
 {
-    List<string[]> map = new List<string[]>();
+    public static MapGenerator mapGenerator;
+    public List<string[]> map = new List<string[]>();
     [Tooltip("每一個方格的大小(unity內部單位)")]
     public Vector2 unit_scale;
     public GameObject[] prefab_list;public string[] prefab_name;
     public GameObject outer_map_obj;
+    public List<Vector2> free_position_list = new List<Vector2>();
     public int width,length;
     void Awake(){
+        if(mapGenerator == null){
+            mapGenerator = this;
+        }else{
+            Destroy(this.gameObject);
+        }   
+        
         read_map();
         generate_map();
     }
@@ -49,6 +57,7 @@ public class MapGenerator : MonoBehaviour
             print(e.Message);
         }
     }
+    
     void generate_map(){
         //i=第幾行,j=某行第幾個元素
         for(int i=0;i < map.Count;i++){
@@ -58,12 +67,13 @@ public class MapGenerator : MonoBehaviour
                         if((map[i])[j] != "255"){
                             GameObject new_pref = Instantiate(prefab_list[prefab_index]);
                             new_pref.transform.position = new Vector3(0,0,0)+new Vector3(j*unit_scale.y,i*unit_scale.x,0);
+                        }else{
+                            free_position_list.Add(new Vector2(j*unit_scale.y,i*unit_scale.x));
                         }
                     }
                 }
             }
         }
-
     }
     void generate_random(){
         // int rand;
