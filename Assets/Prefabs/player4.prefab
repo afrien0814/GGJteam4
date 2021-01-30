@@ -116,6 +116,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skill_info: {fileID: 7866711999817869562}
   chase_info: {fileID: 3801664147630685530}
+  sound: []
 --- !u!1 &2843674758405237204
 GameObject:
   m_ObjectHideFlags: 0
@@ -412,18 +413,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2256c26089b92494080364fbacea9b9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item_holding: 0
+  trackingArrowPrefab: {fileID: 8038821552281605551, guid: 693b8f6e6fdfce746b863c5b64024505,
+    type: 3}
+  warningArrowPrefab: {fileID: 9131346282004371143, guid: 116e58a825e833042b5f463a4b9fa191,
+    type: 3}
+  spawnTime: 5
   playerId: 4
-  targetId: 0
+  targetId: 3
+  chaserId: 2
   upKey: 264
   downKey: 261
   leftKey: 260
   rightKey: 262
-  useKey: 0
+  useKey: 47
   dashSpeed: 7.5
   dashTime: 5
   jumping: 0
   facing: {x: 0, y: 0}
-  item_holding: 0
 --- !u!50 &7866711999817869510
 Rigidbody2D:
   serializedVersion: 4

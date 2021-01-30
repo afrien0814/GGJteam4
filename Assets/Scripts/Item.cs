@@ -10,18 +10,18 @@ public class Item : MonoBehaviour
         nothing,
         dash,
         jump,
-        trac
+        trac,
+        warn
     }
     public item_type item_holding;
     public virtual IEnumerator Dash() { yield return 0; }
     public virtual IEnumerator Jumping() { yield return 0; }
-    private int player;
-    private Transform target;
+    private Transform target, chaser;
     private Move move;
     [SerializeField]
-    private GameObject trackingArrowPrefab;
-    private GameObject trackingArrow;
-    private Vector3 trackingForward;
+    private GameObject trackingArrowPrefab, warningArrowPrefab;
+    private GameObject trackingArrow, warningArrow;
+    private Vector3 trackingForward, warningForward;
     private bool tracking, warning;
     [SerializeField]
     private float spawnTime = 5f;
@@ -36,22 +36,31 @@ public class Item : MonoBehaviour
             if (trackingForward.x > 0) arrow.rotation = Quaternion.Euler(0, 0, -Vector2.Angle(trackingForward, Vector2.up));
             else arrow.rotation = Quaternion.Euler(0, 0, Vector2.Angle(trackingForward, Vector2.up));
         }
+        if (warning)
+        {
+            Transform arrow = warningArrow.transform;
+            arrow.position = transform.position;
+            warningForward = chaser.position - transform.position;
+            if (warningForward.x > 0) arrow.rotation = Quaternion.Euler(0, 0, -Vector2.Angle(warningForward, Vector2.up));
+            else arrow.rotation = Quaternion.Euler(0, 0, Vector2.Angle(warningForward, Vector2.up));
+        }
     }
 
     private IEnumerator SpawnTimer(GameObject arrow)
     {
-        tracking = true;
+        if (arrow.name[0] == 't') tracking = true;
+        else warning = true;
         yield return new WaitForSeconds(spawnTime);
-        tracking = false;
+        if (arrow.name[0] == 't') tracking = false;
+        else warning = false;
         Destroy(arrow);
     }
 
     public void ItemInit()
     {
         move = GetComponent<Move>();
-        player = move.playerId;
         target = GameObject.Find("player"+ move.targetId).transform;
-        Debug.Log(player + target.name);
+        chaser = GameObject.Find("player" + move.chaserId).transform;
     }
 
     public void useItem()
@@ -66,15 +75,14 @@ public class Item : MonoBehaviour
             else trackingArrow = Instantiate(trackingArrowPrefab, transform.position, Quaternion.Euler(0, 0, Vector2.Angle(trackingForward, Vector2.up)));
             StartCoroutine(SpawnTimer(trackingArrow));
         }
+        if (item_holding == item_type.warn)
+        {
+            warningForward = chaser.position - transform.position;
+            if (warningForward.x > 0) warningArrow = Instantiate(warningArrowPrefab, transform.position, Quaternion.Euler(0, 0, -Vector2.Angle(warningForward, Vector2.up)));
+            else warningArrow = Instantiate(warningArrowPrefab, transform.position, Quaternion.Euler(0, 0, Vector2.Angle(warningForward, Vector2.up)));
+            StartCoroutine(SpawnTimer(warningArrow));
+        }
         item_holding = item_type.nothing;
-    }
-    void track(GameObject gameObject)
-    {
-        Transform arrow = gameObject.transform;
-        arrow.position = transform.position;
-        trackingForward = target.position - transform.position;
-        if (trackingForward.x > 0) arrow.rotation = Quaternion.Euler(0, 0, -Vector2.Angle(trackingForward, Vector2.up));
-        else arrow.rotation = Quaternion.Euler(0, 0, -Vector2.Angle(trackingForward, Vector2.up));
     }
     
 }

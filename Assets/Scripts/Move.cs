@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Move : Item
 {
-    public int playerId, targetId;
+    public int playerId, targetId, chaserId;
     [SerializeField]
     private KeyCode upKey, downKey, leftKey, rightKey, useKey;
     private float moveSpeed = 5f;
