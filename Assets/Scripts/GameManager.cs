@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
         }else{
             Destroy(gameObject);
         }
+        loadTutorial = true;
     }
     public void LoadGame()
     {
