@@ -10,6 +10,7 @@ public class PlayerAnim : MonoBehaviour
 
     public Move skill_info;
     public Chaser chase_info;
+    public GameObject hide_effect;
     public AudioClip[] sound;
 
     Item.item_type former_item;
@@ -26,8 +27,6 @@ public class PlayerAnim : MonoBehaviour
         //idle or walk
         anim.SetFloat("velocity", get_velocity.velocity.magnitude);
 
-        //
-
         //skill
         if(former_item!=Item.item_type.nothing 
             && skill_info.item_holding == Item.item_type.nothing)
@@ -42,8 +41,8 @@ public class PlayerAnim : MonoBehaviour
         }
 
         //chasing
-        //anim.SetBool("find_target", chase_info.chasing);
-        //anim.SetBool("chased", chase_info.isChased);
+        anim.SetBool("find_target", chase_info.chasing);
+        anim.SetBool("chased", chase_info.isChased);
     }
 
     IEnumerator Jump()
@@ -61,6 +60,11 @@ public class PlayerAnim : MonoBehaviour
         }
         this.GetComponent<SpriteRenderer>().sortingOrder = 0;
         yield break;
+    }
+
+    void Hide()
+    {
+        Instantiate(hide_effect, this.transform.parent);
     }
 
     void Scream()

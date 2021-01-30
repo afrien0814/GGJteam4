@@ -32,6 +32,10 @@ public class GameManager : MonoBehaviour
         }
         loadTutorial = true;
     }
+    void Start(){
+        initiation();
+        set_spawn_location();
+    }
     public void LoadGame()
     {
         if (loadTutorial)
@@ -44,8 +48,7 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator GameStart()
     {
-        //initiation();
-        //set_spawn_location();
+        
         winnerId = -1;
         callUI?.Invoke("Timer");
         for (timer = (int)countdownTimer; timer > -2; timer--) yield return new WaitForSeconds(1f);
