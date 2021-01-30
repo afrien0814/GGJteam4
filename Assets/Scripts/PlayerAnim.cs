@@ -6,9 +6,11 @@ public class PlayerAnim : MonoBehaviour
 {
     Rigidbody2D get_velocity;
     Animator anim;
+    AudioSource SE;
 
     public Move skill_info;
     public Chaser chase_info;
+    public AudioClip[] sound;
 
     Item.item_type former_item;
 
@@ -16,6 +18,7 @@ public class PlayerAnim : MonoBehaviour
     {
         get_velocity = this.transform.parent.GetComponent<Rigidbody2D>();
         anim = this.GetComponent<Animator>();
+        //SE = this.GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -39,12 +42,13 @@ public class PlayerAnim : MonoBehaviour
         }
 
         //chasing
-        anim.SetBool("find_target", chase_info.chasing);
-        anim.SetBool("chased", chase_info.isChased);
+        //anim.SetBool("find_target", chase_info.chasing);
+        //anim.SetBool("chased", chase_info.isChased);
     }
 
     IEnumerator Jump()
     {
+        this.GetComponent<SpriteRenderer>().sortingOrder = 10;
         for(int i=0; i<10; i++)
         {
             this.transform.localScale += new Vector3(0.1f, 0.1f, 0);
@@ -55,6 +59,18 @@ public class PlayerAnim : MonoBehaviour
             this.transform.localScale -= new Vector3(0.1f, 0.1f, 0);
             yield return null;
         }
+        this.GetComponent<SpriteRenderer>().sortingOrder = 0;
         yield break;
+    }
+
+    void Scream()
+    {
+        /*
+        SE.clip = sound[Random.Range(0, sound.Length)];
+        if(!SE.isPlaying)
+        {
+            SE.Play();
+        }
+        */
     }
 }
