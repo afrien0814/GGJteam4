@@ -19,13 +19,7 @@ public class Move : MonoBehaviour
     public Vector2 facing;
     int facing_int;
 
-    public enum item_type
-    {
-        nothing,
-        dash,
-        jump
-    }
-    public item_type item_holding;
+    public Item.item_type item_holding;
 
     // Start is called before the first frame update
     void Start()
@@ -65,14 +59,14 @@ public class Move : MonoBehaviour
         if (Input.GetKey(keys[1])) dir.x = moveSpeed;
         if (Input.GetKey(keys[2])) dir.y = -moveSpeed;
         if (Input.GetKey(keys[3])) dir.x = -moveSpeed;
-        if (item_holding == item_type.dash && Input.GetKeyDown(useKey)) StartCoroutine(Dash());
-        if (item_holding == item_type.jump && Input.GetKeyDown(useKey)) StartCoroutine(Jumping());
+        if (item_holding == Item.item_type.dash && Input.GetKeyDown(useKey)) StartCoroutine(Dash());
+        if (item_holding == Item.item_type.jump && Input.GetKeyDown(useKey)) StartCoroutine(Jumping());
     }
     
     private IEnumerator Dash()
     {
         float tmp = moveSpeed;
-        item_holding = item_type.nothing;
+        item_holding = Item.item_type.nothing;
         moveSpeed = dashSpeed;
         yield return new WaitForSeconds(dashTime);
         moveSpeed = tmp;
@@ -94,7 +88,7 @@ public class Move : MonoBehaviour
     {
         jumping = true;
         Debug.Log("jump");
-        item_holding = item_type.nothing;
+        item_holding = Item.item_type.nothing;
         gameObject.layer = LayerMask.NameToLayer("superPlayer");
         yield return new WaitForSeconds(0.4f);
         gameObject.layer = LayerMask.NameToLayer("Player");
@@ -116,7 +110,7 @@ public class Move : MonoBehaviour
         }
         if(other.layer== LayerMask.NameToLayer("Item"))
         {
-            item_holding = (item_type)System.Enum.Parse(typeof(item_type), other.name.Substring(0,4));
+            item_holding = (Item.item_type)System.Enum.Parse(typeof(Item.item_type), other.name.Substring(0,4));
             //Destroy(other);
             Debug.Log("get item: " + item_holding);
         }
