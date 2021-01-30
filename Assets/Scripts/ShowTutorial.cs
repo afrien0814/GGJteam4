@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class ShowTutorial : MonoBehaviour
 {
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         GameManager.gameManager.callUI += OnGameStart;
         transform.localScale = Vector2.zero;

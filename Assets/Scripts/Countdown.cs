@@ -8,7 +8,7 @@ public class Countdown : MonoBehaviour
     bool counting;
     Text text;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         GameManager.gameManager.callUI += CountdownStart;
         text = transform.GetChild(0).GetComponent<Text>();
