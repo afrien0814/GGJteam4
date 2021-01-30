@@ -477,5 +477,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skill_info: {fileID: 978405536754058517}
   chase_info: {fileID: 6088280805911515317}
+  hide_effect: {fileID: 1565185653827753546, guid: 533fb8c3e4d90d74aa0e2c6096d91821,
+    type: 3}
   sound:
   - {fileID: 8300000, guid: e6a96348f4162a542bb1f261865a7c2f, type: 3}

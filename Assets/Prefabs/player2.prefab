@@ -116,6 +116,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skill_info: {fileID: 8078544948621384143}
   chase_info: {fileID: 3022711740068891759}
+  hide_effect: {fileID: 1565185653827753546, guid: 533fb8c3e4d90d74aa0e2c6096d91821,
+    type: 3}
   sound: []
 --- !u!1 &4199094375140415713
 GameObject:
