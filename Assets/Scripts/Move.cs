@@ -44,9 +44,9 @@ public class Move : MonoBehaviour
         GetKeyInput();
         rigidBody2D.velocity=dir;
         
-        if (facing == new Vector2(0, 1)) facing_int = 1;
+        if (facing == new Vector2(0, 1)) facing_int = 3;
         else if (facing == new Vector2(1, 0)) facing_int = 2;
-        else if (facing == new Vector2(0, -1)) facing_int = 3;
+        else if (facing == new Vector2(0, -1)) facing_int = 1;
         else if (facing == new Vector2(-1, 0)) facing_int = 4;
         sprite.rotation = Quaternion.Euler(0, 0, 90 * (facing_int - 1));
     }
