@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Move : MonoBehaviour
 {
-    public int playerId;
+    public int playerId, target;
     [SerializeField]
     private KeyCode upKey, downKey, leftKey, rightKey, dashKey;
     private float moveSpeed = 5f;
@@ -17,6 +17,9 @@ public class Move : MonoBehaviour
     private float dashCD = 1f, dashForce = 25f;
     private bool dashing, dashInCD;
     public Vector2 facing;
+    int facing_int;
+
+    private Transform sprite;
     
     // Start is called before the first frame update
     void Start()
@@ -30,7 +33,9 @@ public class Move : MonoBehaviour
         keys.RemoveRange(0, playerId - 1);
         //for (int i = 0; i < keys.Count; i++) Debug.Log(keys[i].ToString());
         transform.GetChild(0).rotation = Quaternion.Euler(0, 0, 90 * (playerId - 1));
-
+        sprite = transform.GetChild(1);
+        sprite.rotation = Quaternion.Euler(0, 0, 90 * (playerId - 1));
+        facing_int = playerId;
     }
 
     // Update is called once per frame
@@ -38,6 +43,12 @@ public class Move : MonoBehaviour
     {
         GetKeyInput();
         rigidBody2D.velocity=dir;
+        
+        if (facing == new Vector2(0, 1)) facing_int = 1;
+        else if (facing == new Vector2(1, 0)) facing_int = 2;
+        else if (facing == new Vector2(0, -1)) facing_int = 3;
+        else if (facing == new Vector2(-1, 0)) facing_int = 4;
+        sprite.rotation = Quaternion.Euler(0, 0, 90 * (facing_int - 1));
     }
 
     private void GetKeyInput()
