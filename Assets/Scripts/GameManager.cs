@@ -62,20 +62,23 @@ public class GameManager : MonoBehaviour
     public float minimum_radial_distance = 5;
 
     void set_spawn_location(){
+        print("set_spawn_location");
         for (int i = 0; i < players.Length; i++)
         {
             bool is_crowded = false;
             do{
                 int rand = UnityEngine.Random.Range(0,MapGenerator.mapGenerator.free_position_list.Count);
-                players[i].transform.position = MapGenerator.mapGenerator.free_position_list[rand];
+                players[i].transform.position = new Vector3(MapGenerator.mapGenerator.free_position_list[rand].x,MapGenerator.mapGenerator.free_position_list[rand].y,0);
+                print(MapGenerator.mapGenerator.free_position_list[rand]);
+                print(players[i].transform.position);
                 is_crowded = false;
                 for (int l = 0; l < i; l++)
                 {
-                    if(Mathf.Abs((players[i].transform.position-players[l].transform.position).magnitude) <= minimum_radial_distance){
+                    if(Mathf.Abs((players[i].gameObject.transform.position-players[l].transform.position).magnitude) <= minimum_radial_distance){
                         is_crowded = true;
                     }
                 }
-                //print("again!!!");
+                print("again!!!");
             }while(is_crowded);
 
         }
