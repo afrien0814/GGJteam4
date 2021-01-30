@@ -12,8 +12,8 @@ public class GameManager : MonoBehaviour
     public float countdownTimer = 3;
     public int timer;
     public bool gaming;
-    public GameObject[] players;
-    public int[] target_list;
+    public Move[] players = new Move[4];
+    public int[] target_list, chaser_list;
     private bool loadTutorial = true;
     public int winnerId;
     class container_player{
@@ -32,10 +32,7 @@ public class GameManager : MonoBehaviour
         }
         loadTutorial = true;
     }
-    void Start(){
-        initiation();
-        set_spawn_location();
-    }
+
     public void LoadGame()
     {
         if (loadTutorial)
@@ -48,10 +45,14 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator GameStart()
     {
-        
+        initiation();
+        set_spawn_location();
+        yield return new WaitForSeconds(0.1f);
         winnerId = -1;
         callUI?.Invoke("Timer");
+        callUI?.Invoke("PlayerUI");
         for (timer = (int)countdownTimer; timer > -2; timer--) yield return new WaitForSeconds(1f);
+        MapGenerator.mapGenerator.init_generate_items();
         gaming = true;
     }
 
@@ -74,46 +75,34 @@ public class GameManager : MonoBehaviour
                         is_crowded = true;
                     }
                 }
-                print("again!!!");
+                //print("again!!!");
             }while(is_crowded);
 
         }
     }
 
-
-
-    ///////////////////////////////////////////////////////////
-    // DO NOT LOOK INTO IT YOU PROBABLY WILL DIE FOR THIS
-    ///////////////////////////////////////////////////////////
-
-    void initiation(){
-        List<container_player> pl = new List<container_player>();
-        target_list = new int[4];
-        bool ok = false;
-        while(!ok){
-            for(int i=0;i<players.Length;i++){
-                pl.Add(new container_player(players[i].GetComponent<Move>().playerId));
-                print(pl[i].pid);
-            }
-            for(int i=0;i<players.Length;i++){
-                int rand_target = UnityEngine.Random.Range(0,pl.Count);
-                print("player "+players[i].GetComponent<Move>().playerId+"'s target is "+pl[rand_target].pid);
-                players[i].GetComponent<Move>().targetId = pl[rand_target].pid;
-                target_list[i] = pl[rand_target].pid;
-                pl.Remove(pl[rand_target]);
-            }
-            bool check = false;
-            for(int i=0;i<players.Length;i++){
-                if(players[i].GetComponent<Move>().playerId == target_list[i]){
-                    check=true;
-                }
-            }
-            if(check == false){
-                ok = true;
-            }
+    void initiation()
+    {
+        List<int> ps = new List<int>(), pool = new List<int>();
+        target_list = new int[4];chaser_list = new int[4];
+        for (int i = 0; i < 4; i++) pool.Add(i);
+        for(int i = 0; i < 4; i++)
+        {
+            int index = UnityEngine.Random.Range(0, pool.Count - 1);
+            ps.Add(pool[index]);
+            pool.Remove(pool[index]);
         }
+        Debug.Log("" + ps[0] + ps[1] + ps[2] + ps[3]);
+        for (int i = 0; i < 4; i++)
+        {
+            players[ps[i]].targetId = target_list[ps[i]] = ps[(i + 1) % 4] + 1;
+            players[ps[i]].chaserId = chaser_list[ps[i]] = ps[(i + 3) % 4] + 1;
+            Debug.Log("player " + (ps[i] + 1) + "'s target is " + target_list[ps[i]] + ", and chaser is " + chaser_list[ps[i]]);
+        }   
+
     }
-    public void win(int winner){
+
+        public void win(int winner){
         gaming = false;
         winnerId = winner;
         callUI?.Invoke("GameOver");
