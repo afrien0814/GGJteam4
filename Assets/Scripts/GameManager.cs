@@ -2,13 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using System;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager gameManager;
-    public float timer = 180;
+    public Action<string> callUI;
+    public float countdownTimer = 3;
+    public int timer;
+    public bool gaming;
     public GameObject[] players;
     public int[] target_list;
+    private bool loadTutorial = true;
+    public int winnerId;
     class container_player{
         public int pid;
         public container_player(int i){
@@ -18,24 +25,33 @@ public class GameManager : MonoBehaviour
 
     // Start is called before the first frame update
     void Awake(){
-        if(gameManager == null){
-            gameManager = this;
+        if(GameManager.gameManager == null){
+            GameManager.gameManager = this;
         }else{
-            Destroy(gameManager.gameObject);
+            Destroy(gameObject);
         }
-        initiation();
     }
-    
-    void Start()
+    public void LoadGame()
     {
-        set_spawn_location();
+        if (loadTutorial)
+        {
+            callUI?.Invoke("HowToPlay");
+            loadTutorial = false;
+        }
+        else StartCoroutine(GameStart());
     }
 
-    // Update is called once per frame
-    void Update()
+    public IEnumerator GameStart()
     {
-        
+        //initiation();
+        //set_spawn_location();
+        winnerId = -1;
+        callUI?.Invoke("Timer");
+        for (timer = (int)countdownTimer; timer > -2; timer--) yield return new WaitForSeconds(1f);
+        gaming = true;
     }
+
+   
 
     [Tooltip("if distance of sapwn position between two player is less than this number ,we will reset the location . ")]
     public float minimum_radial_distance = 5;
@@ -45,7 +61,7 @@ public class GameManager : MonoBehaviour
         {
             bool is_crowded = false;
             do{
-                int rand = Random.Range(0,MapGenerator.mapGenerator.free_position_list.Count);
+                int rand = UnityEngine.Random.Range(0,MapGenerator.mapGenerator.free_position_list.Count);
                 players[i].transform.position = MapGenerator.mapGenerator.free_position_list[rand];
                 is_crowded = false;
                 for (int l = 0; l < i; l++)
@@ -76,7 +92,7 @@ public class GameManager : MonoBehaviour
                 print(pl[i].pid);
             }
             for(int i=0;i<players.Length;i++){
-                int rand_target = Random.Range(0,pl.Count);
+                int rand_target = UnityEngine.Random.Range(0,pl.Count);
                 print("player "+players[i].GetComponent<Move>().playerId+"'s target is "+pl[rand_target].pid);
                 players[i].GetComponent<Move>().targetId = pl[rand_target].pid;
                 target_list[i] = pl[rand_target].pid;
@@ -94,9 +110,9 @@ public class GameManager : MonoBehaviour
         }
     }
     public void win(int winner){
-        print(winner + " is winner");
-        print(winner + " is winner!");
-        print(winner + " is winner!!!");
+        gaming = false;
+        winnerId = winner;
+        callUI?.Invoke("GameOver");
     }
 
 }

@@ -54,6 +54,11 @@ public class Move : Item
 
     private void GetKeyInput()
     {
+        if (!GameManager.gameManager.gaming)
+        {
+            dir = Vector2.zero;
+            return;
+        }
         if (jumping) return;
         if (dir != Vector2.zero) facing = dir.normalized;
         dir = Vector2.zero;
@@ -106,7 +111,7 @@ public class Move : Item
             if (!other_p) return;
             if(other_p.playerId == GetComponent<Move>().targetId)
             {
-                GameManager.gameManager.win(GetComponent<Move>().playerId);
+                GameManager.gameManager.win(playerId);
             }
         }
         if(other.layer== LayerMask.NameToLayer("Item"))
