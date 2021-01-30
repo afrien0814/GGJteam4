@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Move : MonoBehaviour
+public class Move : Item
 {
     public int playerId, targetId;
     [SerializeField]
@@ -19,7 +19,7 @@ public class Move : MonoBehaviour
     public Vector2 facing;
     int facing_int;
 
-    public Item.item_type item_holding;
+    //public item_type item_holding;
 
     // Start is called before the first frame update
     void Start()
@@ -35,6 +35,7 @@ public class Move : MonoBehaviour
         sprite = transform.GetChild(1);
         sprite.rotation = Quaternion.Euler(0, 0, 90 * (playerId - 1));
         facing_int = playerId;
+        ItemInit();
     }
 
     // Update is called once per frame
@@ -48,6 +49,7 @@ public class Move : MonoBehaviour
         else if (facing == new Vector2(0, -1)) facing_int = 1;
         else if (facing == new Vector2(-1, 0)) facing_int = 4;
         sprite.rotation = Quaternion.Euler(0, 0, 90 * (facing_int - 1));
+        ItemUpdate();
     }
 
     private void GetKeyInput()
@@ -59,14 +61,13 @@ public class Move : MonoBehaviour
         if (Input.GetKey(keys[1])) dir.x = moveSpeed;
         if (Input.GetKey(keys[2])) dir.y = -moveSpeed;
         if (Input.GetKey(keys[3])) dir.x = -moveSpeed;
-        if (item_holding == Item.item_type.dash && Input.GetKeyDown(useKey)) StartCoroutine(Dash());
-        if (item_holding == Item.item_type.jump && Input.GetKeyDown(useKey)) StartCoroutine(Jumping());
+        if (Input.GetKeyDown(useKey)) useItem();
     }
     
-    private IEnumerator Dash()
+    public override IEnumerator Dash()
     {
         float tmp = moveSpeed;
-        item_holding = Item.item_type.nothing;
+        item_holding = item_type.nothing;
         moveSpeed = dashSpeed;
         yield return new WaitForSeconds(dashTime);
         moveSpeed = tmp;
@@ -84,11 +85,11 @@ public class Move : MonoBehaviour
         }
         dashing = false;
     }*/
-    private IEnumerator Jumping()
+    public override IEnumerator Jumping()
     {
         jumping = true;
         Debug.Log("jump");
-        item_holding = Item.item_type.nothing;
+        item_holding = item_type.nothing;
         gameObject.layer = LayerMask.NameToLayer("superPlayer");
         yield return new WaitForSeconds(0.4f);
         gameObject.layer = LayerMask.NameToLayer("Player");
@@ -110,11 +111,10 @@ public class Move : MonoBehaviour
         }
         if(other.layer== LayerMask.NameToLayer("Item"))
         {
-            item_holding = (Item.item_type)System.Enum.Parse(typeof(Item.item_type), other.name.Substring(0,4));
+            item_holding = (item_type)System.Enum.Parse(typeof(item_type), other.name.Substring(0,4));
             //Destroy(other);
             Debug.Log("get item: " + item_holding);
         }
     }
-
 
 }
