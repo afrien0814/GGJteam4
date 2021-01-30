@@ -13,11 +13,11 @@ TagManager:
   - UI
   - 
   - 
-  - player
-  - wall
-  - chaser
-  - 
-  - 
+  - Player
+  - Wall
+  - Chaser
+  - Item
+  - superPlayer
   - 
   - 
   - 

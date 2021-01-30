@@ -8,24 +8,29 @@ public class Move : MonoBehaviour
     [SerializeField]
     private KeyCode upKey, downKey, leftKey, rightKey, dashKey;
     private float moveSpeed = 5f;
-    private Vector2 dir = Vector2.zero, lastDir = Vector2.zero;
+    private Vector2 dir = Vector2.zero;
     private Rigidbody2D rigidBody2D;
-    private Collider2D myCollider;
+    private Transform sprite;
     private List<KeyCode> keys;
 
     [SerializeField]
-    private float dashCD = 1f, dashForce = 25f;
-    private bool dashing, dashInCD;
+    private float dashForce = 25f;
+    private bool dashing,jumping;
     public Vector2 facing;
     int facing_int;
 
-    private Transform sprite;
-    
+    public enum item_type
+    {
+        nothing,
+        dash,
+        jump
+    }
+    private item_type item_holding;
+
     // Start is called before the first frame update
     void Start()
     {
         rigidBody2D = GetComponent<Rigidbody2D>();
-        myCollider = GetComponent<Collider2D>();
         keys = new List<KeyCode>();
         keys.Add(upKey); keys.Add(rightKey); keys.Add(downKey); keys.Add(leftKey);
         keys.AddRange(keys);
@@ -53,19 +58,21 @@ public class Move : MonoBehaviour
 
     private void GetKeyInput()
     {
-        if (dashing) return;
+        if (dashing || jumping) return;
         if (dir != Vector2.zero) facing = dir.normalized;
         dir = Vector2.zero;
         if (Input.GetKey(keys[0])) dir.y = moveSpeed;
         if (Input.GetKey(keys[1])) dir.x = moveSpeed;
         if (Input.GetKey(keys[2])) dir.y = -moveSpeed;
         if (Input.GetKey(keys[3])) dir.x = -moveSpeed;
-        if (!dashInCD && Input.GetKeyDown(dashKey)) StartCoroutine(Dash());
+        if (item_holding == item_type.dash && Input.GetKeyDown(dashKey)) StartCoroutine(Dash());
+        if (item_holding == item_type.jump && Input.GetKeyDown(dashKey)) StartCoroutine(Jumping());
     }
 
     private IEnumerator Dash()
     {
         dashing = true;
+        item_holding = item_type.nothing;
         dir = facing * dashForce;
         float acc = (dashForce - moveSpeed) / 3;
         for(int timer = 0; timer < 3; timer++)
@@ -74,14 +81,37 @@ public class Move : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
         }
         dashing = false;
-        dashInCD = true;
-        yield return new WaitForSeconds(dashCD);
-        dashInCD = false;
+    }
+    private IEnumerator Jumping()
+    {
+        jumping = true;
+        Debug.Log("jump");
+        item_holding = item_type.nothing;
+        gameObject.layer = LayerMask.NameToLayer("superPlayer");
+        yield return new WaitForSeconds(0.4f);
+        gameObject.layer = LayerMask.NameToLayer("Player");
+        jumping = false;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log(collision.collider.name);
+        GameObject other = collision.collider.gameObject;
+        //Debug.Log(this.name + " hit " + other.name);
+        if (other.layer == LayerMask.NameToLayer("Player"))
+        {
+            Move other_p = other.gameObject.GetComponent<Move>();
+            if (!other_p) return;
+            if(other_p.playerId == GetComponent<Move>().targetId)
+            {
+                GameManager.gameManager.win(GetComponent<Move>().playerId);
+            }
+        }
+        if(other.layer== LayerMask.NameToLayer("Item"))
+        {
+            item_holding = (item_type)System.Enum.Parse(typeof(item_type), other.name.Substring(0,4));
+            //Destroy(other);
+            Debug.Log("get item: " + item_holding);
+        }
     }
 
 
