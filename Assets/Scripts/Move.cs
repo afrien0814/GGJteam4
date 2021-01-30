@@ -6,7 +6,7 @@ public class Move : MonoBehaviour
 {
     public int playerId, targetId;
     [SerializeField]
-    private KeyCode upKey, downKey, leftKey, rightKey, dashKey;
+    private KeyCode upKey, downKey, leftKey, rightKey, useKey;
     private float moveSpeed = 5f;
     private Vector2 dir = Vector2.zero;
     private Rigidbody2D rigidBody2D;
@@ -14,8 +14,8 @@ public class Move : MonoBehaviour
     private List<KeyCode> keys;
 
     [SerializeField]
-    private float dashForce = 25f;
-    private bool dashing,jumping;
+    private float dashSpeed = 7.5f, dashTime=5f;
+    public bool jumping;
     public Vector2 facing;
     int facing_int;
 
@@ -25,7 +25,7 @@ public class Move : MonoBehaviour
         dash,
         jump
     }
-    private item_type item_holding;
+    public item_type item_holding;
 
     // Start is called before the first frame update
     void Start()
@@ -58,18 +58,26 @@ public class Move : MonoBehaviour
 
     private void GetKeyInput()
     {
-        if (dashing || jumping) return;
+        if (jumping) return;
         if (dir != Vector2.zero) facing = dir.normalized;
         dir = Vector2.zero;
         if (Input.GetKey(keys[0])) dir.y = moveSpeed;
         if (Input.GetKey(keys[1])) dir.x = moveSpeed;
         if (Input.GetKey(keys[2])) dir.y = -moveSpeed;
         if (Input.GetKey(keys[3])) dir.x = -moveSpeed;
-        if (item_holding == item_type.dash && Input.GetKeyDown(dashKey)) StartCoroutine(Dash());
-        if (item_holding == item_type.jump && Input.GetKeyDown(dashKey)) StartCoroutine(Jumping());
+        if (item_holding == item_type.dash && Input.GetKeyDown(useKey)) StartCoroutine(Dash());
+        if (item_holding == item_type.jump && Input.GetKeyDown(useKey)) StartCoroutine(Jumping());
     }
-
+    
     private IEnumerator Dash()
+    {
+        float tmp = moveSpeed;
+        item_holding = item_type.nothing;
+        moveSpeed = dashSpeed;
+        yield return new WaitForSeconds(dashTime);
+        moveSpeed = tmp;
+    }
+    /*private IEnumerator Dash()
     {
         dashing = true;
         item_holding = item_type.nothing;
@@ -81,7 +89,7 @@ public class Move : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
         }
         dashing = false;
-    }
+    }*/
     private IEnumerator Jumping()
     {
         jumping = true;
