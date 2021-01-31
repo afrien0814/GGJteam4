@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
 
    public void ItemManage(int pId, int iId)
     {
-        Debug.Log("player " + pId + " gets " + iId + (Move.item_type)iId);
+        //Debug.Log("player " + pId + " gets " + iId + (Move.item_type)iId);
         item_list[pId - 1] = iId;
         itemUpdate?.Invoke(pId, iId);
     }

@@ -52,10 +52,10 @@ public class Move : Item
         GetKeyInput();
         rigidBody2D.velocity=dir;
         
-        if (facing == new Vector2(0, 1)) facing_int = 3;
-        else if (facing == new Vector2(1, 0)) facing_int = 2;
-        else if (facing == new Vector2(0, -1)) facing_int = 1;
-        else if (facing == new Vector2(-1, 0)) facing_int = 4;
+        if (facing.y == 1) facing_int = 3;
+        else if (facing.x == 1) facing_int = 2;
+        else if (facing.y == -1) facing_int = 1;
+        else if (facing.x == -1) facing_int = 4;
         sprite.rotation = Quaternion.Euler(0, 0, 90 * (facing_int - 1));
         ItemUpdate();
     }
@@ -98,11 +98,40 @@ public class Move : Item
         }
         dashing = false;
     }*/
-    public override IEnumerator Jumping()
+
+    public override bool Jump()
+    {
+        if (facing.x + facing.y != 1) // handle 45 degree direction
+        {
+            if (facing_int == 3) facing = new Vector2(0, 1);
+            else if (facing_int == 2) facing = new Vector2(1, 0);
+            else if (facing_int == 1) facing = new Vector2(0, -1);
+            else if (facing_int == 4) facing = new Vector2(-1, 0);
+        }
+        LayerMask layerMask = new LayerMask();
+        layerMask = 1 << LayerMask.NameToLayer("Wall");
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, facing, 1.5f, layerMask);
+        Debug.DrawRay(transform.position, facing * 1.5f, Color.red, 3f);
+        if (hit)
+        {
+            print("ray hit");
+            if (hit.collider.tag == "wall") return false;
+            Vector2 playerInd = MapGenerator.mapGenerator.world_position_to_grid_index(transform.position);
+            if (MapGenerator.mapGenerator.free_position_list.Contains(playerInd + facing * 2))
+            {
+                
+                StartCoroutine(Jumping());
+                return true;
+            }
+            else return false;
+        }
+        StartCoroutine(Jumping());
+        return true;
+    }
+    private IEnumerator Jumping()
     {
         jumping = true;
         Debug.Log("jump");
-        item_holding = item_type.nothing;
         gameObject.layer = LayerMask.NameToLayer("superPlayer");
         dir = moveSpeed * facing;
         yield return new WaitForSeconds(0.4f);
@@ -129,7 +158,7 @@ public class Move : Item
             item_holding = (item_type)System.Enum.Parse(typeof(item_type), other.name.Substring(0,4));
             GameManager.gameManager.ItemManage(playerId, (int)item_holding);
             Destroy(other);
-            Debug.Log("get item: " + item_holding);
+            //Debug.Log("get item: " + item_holding);
         }
     }
 

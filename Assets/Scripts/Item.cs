@@ -17,7 +17,7 @@ public class Item : MonoBehaviour
     }
     public item_type item_holding;
     public virtual IEnumerator Dash() { yield return 0; }
-    public virtual IEnumerator Jumping() { yield return 0; }
+    public virtual bool Jump() { return false; }
     private Transform target, chaser;
     private Move move;
     [SerializeField]
@@ -75,7 +75,16 @@ public class Item : MonoBehaviour
     {
         if (item_holding == item_type.nothing) return;
         if (item_holding == item_type.dash) StartCoroutine(Dash());
-        if (item_holding == item_type.jump) StartCoroutine(Jumping());
+        if (item_holding == item_type.jump)
+        {
+            bool canJump = Jump();
+            print(canJump);
+            if(canJump){
+                item_holding = item_type.nothing;
+                GameManager.gameManager.ItemManage(move.playerId, (int)item_holding);
+            }
+            return;
+        }
         if(item_holding == item_type.trac)
         {
             trackingForward = target.position - transform.position;
