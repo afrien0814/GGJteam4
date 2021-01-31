@@ -5,8 +5,16 @@ using UnityEngine.UI;
 using UnityEngine.Tilemaps;
 using System.Drawing;
 using System.IO;
+using System;
 public class MapGenerator : MonoBehaviour
 {
+    public class USER_DEFINE_DATA{
+        public bool use_user_define_map;
+        public string map_name;
+        public string item_amounts;
+        public float refill_item_time;
+    }
+    public USER_DEFINE_DATA user_define_data;
     public static MapGenerator mapGenerator;
     public List<string[]> map = new List<string[]>();
     [Tooltip("每一個方格的大小(unity內部單位)")]
@@ -30,7 +38,8 @@ public class MapGenerator : MonoBehaviour
     [Tooltip("有幾張地圖可選?")]
     public int max_amount;
     [Tooltip("指定載入之地圖編號，指定-1為隨機選取")]
-    public int specify_map_id = -1;
+    //public int specify_map_id = -1;
+    public string specify_map_name = "none";
     public GameObject outer_wall_prefab;
     void Awake(){
         if(mapGenerator == null){
@@ -40,12 +49,22 @@ public class MapGenerator : MonoBehaviour
         }   
         // GameManager.gameManager.map_name;
         refill_timer_max = refill_timer;
-        if(specify_map_id == -1){
-            read_map(/*GameManager.gameManager.map_name*/"map"+(Random.Range(0,max_amount) +1 )+".csv");
+        
+        load_user_define_data();
+        if(specify_map_name == "none"){
+            read_map(/*GameManager.gameManager.map_name*/"map"+(UnityEngine.Random.Range(0,max_amount) +1 )+".csv");
         }else{
-            read_map(/*GameManager.gameManager.map_name*/"map"+specify_map_id+".csv");
+            read_map(/*GameManager.gameManager.map_name*/specify_map_name+".csv");
         }
         
+        // data test
+        // USER_DEFINE_DATA udd = new USER_DEFINE_DATA();
+        // udd.use_user_define_map = false;
+        // udd.map_name = "user_map";
+        // udd.item_amounts = "4,6,7,4";
+        // string jsonInfo = JsonUtility.ToJson(udd,true);
+        // File.WriteAllText(Application.streamingAssetsPath+"/user_data.txt", jsonInfo);
+        //把字串轉換成user_define_data物件
         
     }
     void Start()
@@ -57,6 +76,23 @@ public class MapGenerator : MonoBehaviour
     {
         refill_map_item();
     }
+    void load_user_define_data(){
+        user_define_data = JsonUtility.FromJson<USER_DEFINE_DATA>(File.ReadAllText(Application.streamingAssetsPath+"/user_data.txt"));
+        if(user_define_data.use_user_define_map){
+            specify_map_name = user_define_data.map_name;
+            refill_timer = user_define_data.refill_item_time;//Int32.Parse(input)
+            string[] strs = user_define_data.item_amounts.Split(',');
+            for (int i = 0; i < item_prefab_list.Length; i++)
+            {
+                generated_items_amount[i]= Int32.Parse(strs[i]);
+            }
+        }
+        // print(user_define_data.item_amounts);
+        // print(user_define_data.use_user_define_map);
+        // print(user_define_data.map_name);
+        // print(user_define_data.refill_item_time);
+    }
+
     void read_map(string map_name){
         StreamReader sr = new StreamReader(Application.streamingAssetsPath + "/" + map_name);
         try {
@@ -81,6 +117,7 @@ public class MapGenerator : MonoBehaviour
         }
     }
     
+
     void generate_map(){
         //i=第幾行,j=某行第幾個元素
         for(int i=0;i < map.Count;i++){
@@ -99,27 +136,27 @@ public class MapGenerator : MonoBehaviour
             }
         }
         //outer wall thickness up //
-        /*int thickness = 2;
-        for(int k=0;k < thickness;k++){
-            for(int i = 0 - thickness;i<map.Count +thickness;i++){
-                GameObject new_pref = Instantiate(outer_wall_prefab);
-                new_pref.transform.position = new Vector3(0,0,0)+new Vector3((-k-1)*unit_scale.y,(i)*unit_scale.x,0);
-                new_pref.transform.SetParent(this.gameObject.transform);
-                new_pref = Instantiate(outer_wall_prefab);
-                new_pref.transform.position = new Vector3(0,0,0)+new Vector3((-k-1)*unit_scale.y,(i)*unit_scale.x,0);
-                new_pref.transform.SetParent(this.gameObject.transform);
-            }
-        }
-        for(int k=0;k < thickness;k++){
-            for(int i = 0;i<map[0].Length;i++){
-                GameObject new_pref = Instantiate(outer_wall_prefab);
-                new_pref.transform.position = new Vector3(0,0,0)+new Vector3((i)*unit_scale.y,(-k-1)*unit_scale.x,0);
-                new_pref.transform.SetParent(this.gameObject.transform);
-                new_pref = Instantiate(outer_wall_prefab);
-                new_pref.transform.position = new Vector3(0,0,0)+new Vector3((i)*unit_scale.y,(k)*unit_scale.x,0);
-                new_pref.transform.SetParent(this.gameObject.transform);
-            }
-        }*/
+        // int thickness = 1;
+        // for(int k=0;k < thickness;k++){
+        //     for(int i = 0 - thickness;i<map.Count +thickness;i++){
+        //         GameObject new_pref = Instantiate(outer_wall_prefab);
+        //         new_pref.transform.position = new Vector3(0,0,0)+new Vector3((-k-1)*unit_scale.y,(i)*unit_scale.x,0);
+        //         new_pref.transform.SetParent(this.gameObject.transform);
+        //         new_pref = Instantiate(outer_wall_prefab);
+        //         new_pref.transform.position = new Vector3(0,0,0)+new Vector3((-k-1)*unit_scale.y,(i)*unit_scale.x,0);
+        //         new_pref.transform.SetParent(this.gameObject.transform);
+        //     }
+        // }
+        // for(int k=0;k < thickness;k++){
+        //     for(int i = 0;i<map[0].Length;i++){
+        //         GameObject new_pref = Instantiate(outer_wall_prefab);
+        //         new_pref.transform.position = new Vector3(0,0,0)+new Vector3((i)*unit_scale.y,(-k-1)*unit_scale.x,0);
+        //         new_pref.transform.SetParent(this.gameObject.transform);
+        //         new_pref = Instantiate(outer_wall_prefab);
+        //         new_pref.transform.position = new Vector3(0,0,0)+new Vector3((i)*unit_scale.y,(k)*unit_scale.x,0);
+        //         new_pref.transform.SetParent(this.gameObject.transform);
+        //     }
+        // }
     }
     public bool has_generated_item =false;
     public void init_generate_items(){
@@ -158,7 +195,7 @@ public class MapGenerator : MonoBehaviour
     }
 
     public void generate_random_element(GameObject gene_item){
-        int rand = Random.Range(0,free_position_list.Count);
+        int rand = UnityEngine.Random.Range(0,free_position_list.Count);
         bool check;int iter = 0;
         Vector3 gene_pos;
         do{

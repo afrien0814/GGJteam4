@@ -118,6 +118,7 @@ MonoBehaviour:
   generated_items_amount: 0600000005000000020000000900000003000000
   refill_timer: 10
   max_amount: 4
-  specify_map_id: -1
-  outer_wall_prefab: {fileID: 0}
+  specify_map_name: none
+  outer_wall_prefab: {fileID: 6605262239695258394, guid: cc9e78c55b30df342a9d9ec82978edbb,
+    type: 3}
   has_generated_item: 0

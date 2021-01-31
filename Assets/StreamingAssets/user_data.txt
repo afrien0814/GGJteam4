@@ -1,0 +1,6 @@
+{
+    "use_user_define_map": false,
+    "map_name": "user_map",
+    "item_amounts": "4,6,7,4,6",
+    "refill_item_time": 10
+}
