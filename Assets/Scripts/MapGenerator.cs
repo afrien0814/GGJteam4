@@ -31,6 +31,7 @@ public class MapGenerator : MonoBehaviour
     public int max_amount;
     [Tooltip("指定載入之地圖編號，指定-1為隨機選取")]
     public int specify_map_id = -1;
+    public GameObject outer_wall_prefab;
     void Awake(){
         if(mapGenerator == null){
             mapGenerator = this;
@@ -97,8 +98,28 @@ public class MapGenerator : MonoBehaviour
                 }
             }
         }
-        //generate initial items to map
-        
+        //outer wall thickness up //
+        /*int thickness = 2;
+        for(int k=0;k < thickness;k++){
+            for(int i = 0 - thickness;i<map.Count +thickness;i++){
+                GameObject new_pref = Instantiate(outer_wall_prefab);
+                new_pref.transform.position = new Vector3(0,0,0)+new Vector3((-k-1)*unit_scale.y,(i)*unit_scale.x,0);
+                new_pref.transform.SetParent(this.gameObject.transform);
+                new_pref = Instantiate(outer_wall_prefab);
+                new_pref.transform.position = new Vector3(0,0,0)+new Vector3((-k-1)*unit_scale.y,(i)*unit_scale.x,0);
+                new_pref.transform.SetParent(this.gameObject.transform);
+            }
+        }
+        for(int k=0;k < thickness;k++){
+            for(int i = 0;i<map[0].Length;i++){
+                GameObject new_pref = Instantiate(outer_wall_prefab);
+                new_pref.transform.position = new Vector3(0,0,0)+new Vector3((i)*unit_scale.y,(-k-1)*unit_scale.x,0);
+                new_pref.transform.SetParent(this.gameObject.transform);
+                new_pref = Instantiate(outer_wall_prefab);
+                new_pref.transform.position = new Vector3(0,0,0)+new Vector3((i)*unit_scale.y,(k)*unit_scale.x,0);
+                new_pref.transform.SetParent(this.gameObject.transform);
+            }
+        }*/
     }
     public bool has_generated_item =false;
     public void init_generate_items(){
