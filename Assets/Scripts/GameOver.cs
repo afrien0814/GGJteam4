@@ -70,6 +70,7 @@ public class GameOver : MonoBehaviour
         GameOverEffect();
 
         SE.clip = SE.GetComponent<SECtrl>().SE[1];
+        SE.volume = 1;
         SE.Play();
         yield return new WaitForSeconds(4f);
 

@@ -71,7 +71,7 @@ public class Chaser : MonoBehaviour
         while(GameManager.gameManager.gaming)
         {
             Debug.Log((this.transform.position - col.position).magnitude.ToString());
-            if ((this.transform.position - col.position).magnitude < 2f && !SE.isPlaying)
+            if ((this.transform.position - col.position).magnitude < 3f && !SE.isPlaying)
             {
                 SE.clip = SE.GetComponent<SECtrl>().SE[0];
                 SE.Play();
