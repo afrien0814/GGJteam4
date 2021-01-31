@@ -14,7 +14,7 @@ public class PPControl : MonoBehaviour
     {
         cgd = ppp.GetSetting<ColorGrading>();
         max_t = gray_timer;
-        
+        return_normal_color();
     }
 
     // Update is called once per frame
