@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4274780828745894578}
   - component: {fileID: 4274780828745894579}
-  - component: {fileID: 7465051338971176535}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -54,14 +53,5 @@ MonoBehaviour:
   - {fileID: 7866711999817869562, guid: d53e94a692e50a34f9ebb8870462d6d9, type: 3}
   target_list: 00000000000000000000000000000000
   chaser_list: 00000000000000000000000000000000
-  item_list: 
   winnerId: 0
   minimum_radial_distance: 5
---- !u!81 &7465051338971176535
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4274780828745894580}
-  m_Enabled: 1
