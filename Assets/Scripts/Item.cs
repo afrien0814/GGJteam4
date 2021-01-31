@@ -11,7 +11,9 @@ public class Item : MonoBehaviour
         dash,
         jump,
         trac,
-        warn
+        warn,
+        hide,
+        end
     }
     public item_type item_holding;
     public virtual IEnumerator Dash() { yield return 0; }
@@ -89,6 +91,7 @@ public class Item : MonoBehaviour
             StartCoroutine(SpawnTimer(warningArrow));
         }
         item_holding = item_type.nothing;
+        GameManager.gameManager.ItemManage(move.playerId, (int)item_holding);
     }
     
 }

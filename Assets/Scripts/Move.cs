@@ -15,7 +15,9 @@ public class Move : Item
 
     [SerializeField]
     private float dashSpeed = 7.5f, dashTime=5f;
+    [HideInInspector]
     public bool jumping;
+    [HideInInspector]
     public Vector2 facing;
     int facing_int;
 
@@ -116,8 +118,10 @@ public class Move : Item
         }
         if(other.layer== LayerMask.NameToLayer("Item"))
         {
+            if (item_holding != item_type.nothing) return;
             item_holding = (item_type)System.Enum.Parse(typeof(item_type), other.name.Substring(0,4));
-            //Destroy(other);
+            GameManager.gameManager.ItemManage(playerId, (int)item_holding);
+            Destroy(other);
             Debug.Log("get item: " + item_holding);
         }
     }

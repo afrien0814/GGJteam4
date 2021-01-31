@@ -7,21 +7,19 @@ using System;
 
 public class GameManager : MonoBehaviour
 {
+    [HideInInspector]
     public static GameManager gameManager;
     public Action<string> callUI;
+    public Action<int, int> itemUpdate;
     public float countdownTimer = 3;
+    [HideInInspector]
     public int timer;
     public bool gaming;
     public Move[] players = new Move[4];
-    public int[] target_list, chaser_list;
+    [HideInInspector]
+    public int[] target_list, chaser_list, item_list;
     private bool loadTutorial = true;
     public int winnerId;
-    class container_player{
-        public int pid;
-        public container_player(int i){
-            pid = i;
-        }
-    }
 
     // Start is called before the first frame update
     void Awake(){
@@ -47,6 +45,7 @@ public class GameManager : MonoBehaviour
     {
         initiation();
         set_spawn_location();
+        item_list = new int[4];
         yield return new WaitForSeconds(0.1f);
         winnerId = -1;
         callUI?.Invoke("Timer");
@@ -56,7 +55,12 @@ public class GameManager : MonoBehaviour
         gaming = true;
     }
 
-   
+   public void ItemManage(int pId, int iId)
+    {
+        Debug.Log("player " + pId + " gets " + iId + (Move.item_type)iId);
+        item_list[pId - 1] = iId;
+        itemUpdate?.Invoke(pId, iId);
+    }
 
     [Tooltip("if distance of sapwn position between two player is less than this number ,we will reset the location . ")]
     public float minimum_radial_distance = 5;
@@ -69,8 +73,8 @@ public class GameManager : MonoBehaviour
             do{
                 int rand = UnityEngine.Random.Range(0,MapGenerator.mapGenerator.free_position_list.Count);
                 players[i].transform.position = new Vector3(MapGenerator.mapGenerator.free_position_list[rand].x,MapGenerator.mapGenerator.free_position_list[rand].y,0);
-                print(MapGenerator.mapGenerator.free_position_list[rand]);
-                print(players[i].transform.position);
+                //print(MapGenerator.mapGenerator.free_position_list[rand]);
+                //print(players[i].transform.position);
                 is_crowded = false;
                 for (int l = 0; l < i; l++)
                 {
@@ -78,7 +82,7 @@ public class GameManager : MonoBehaviour
                         is_crowded = true;
                     }
                 }
-                print("again!!!");
+                //print("again!!!");
             }while(is_crowded);
 
         }
@@ -105,7 +109,7 @@ public class GameManager : MonoBehaviour
 
     }
 
-        public void win(int winner){
+    public void win(int winner){
         gaming = false;
         winnerId = winner;
         callUI?.Invoke("GameOver");
