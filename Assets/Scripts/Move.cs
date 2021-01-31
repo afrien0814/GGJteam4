@@ -121,29 +121,10 @@ public class Move : Item
         RaycastHit2D[] hit = Physics2D.RaycastAll(transform.position, facing, MapGenerator.mapGenerator.unit_scale.x * 2, layerMask);
         Debug.DrawRay(transform.position, facing * MapGenerator.mapGenerator.unit_scale.x * 2, Color.red, 3f);
         if (hit.Length > 1) return false;
-        else if (hit.Length > 0 && hit[0].distance > MapGenerator.mapGenerator.unit_scale.x) return false;
-        //else if(hit[0].point>0)
-        /*Collider2D[] hit = Physics2D.OverlapCircleAll((Vector2)transform.position + facing * 1.5f, 0.3f);
-        foreach (Collider2D item in hit)
-        {
-            if (item.gameObject.layer == LayerMask.NameToLayer("Wall")) return false;
-        }*/
-        /*RaycastHit2D hit = Physics2D.Raycast(transform.position, facing, 1.5f, layerMask);
-        Debug.DrawRay(transform.position, facing * 1.5f, Color.red, 3f);
-        if (hit)
-        {
-            print("ray hit");
-            if (hit.collider.tag == "wall") return false;
-            Vector2 playerInd = MapGenerator.mapGenerator.world_position_to_grid_index(transform.position);
-            Vector2 goalInd = playerInd + facing * 2;
-            if (MapGenerator.mapGenerator.map[(int)goalInd.x][(int)goalInd.y]=="255")
-            {
-                Debug.Log((new Vector2(goalInd.x, goalInd.y) * 0.9f).ToString());
-                StartCoroutine(Jumping());
-                return true;
-            }
-            else return false;
-        }*/
+        if (hit.Length == 1) {
+            if (hit[0].distance > MapGenerator.mapGenerator.unit_scale.x || hit[0].collider.tag == "wall") return false;
+        }
+        
         StartCoroutine(Jumping());
         return true;
     }
