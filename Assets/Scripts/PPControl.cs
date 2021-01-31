@@ -14,17 +14,7 @@ public class PPControl : MonoBehaviour
     {
         cgd = ppp.GetSetting<ColorGrading>();
         max_t = gray_timer;
-        cgd.mixerBlueOutBlueIn.value = 100;
-        cgd.mixerBlueOutGreenIn.value = 0;
-        cgd.mixerBlueOutRedIn.value = 0;
-
-        cgd.mixerGreenOutBlueIn.value = 0;
-        cgd.mixerGreenOutGreenIn.value = 100;
-        cgd.mixerGreenOutRedIn.value = 0;
-
-        cgd.mixerRedOutBlueIn.value = 0;
-        cgd.mixerRedOutGreenIn.value = 0;
-        cgd.mixerRedOutRedIn.value = 100;
+        
     }
 
     // Update is called once per frame
@@ -53,5 +43,19 @@ public class PPControl : MonoBehaviour
                 start_gray = false;
             }
         }
+    }
+
+    public void return_normal_color(){
+        cgd.mixerBlueOutBlueIn.value = 100;
+        cgd.mixerBlueOutGreenIn.value = 0;
+        cgd.mixerBlueOutRedIn.value = 0;
+
+        cgd.mixerGreenOutBlueIn.value = 0;
+        cgd.mixerGreenOutGreenIn.value = 100;
+        cgd.mixerGreenOutRedIn.value = 0;
+
+        cgd.mixerRedOutBlueIn.value = 0;
+        cgd.mixerRedOutGreenIn.value = 0;
+        cgd.mixerRedOutRedIn.value = 100;
     }
 }
