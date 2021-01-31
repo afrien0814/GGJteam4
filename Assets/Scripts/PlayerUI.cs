@@ -21,7 +21,7 @@ public class PlayerUI : MonoBehaviour
         if (callName != this.name) return;
         for(int i = 0; i < 4; i++)
         {
-            Debug.Log((GameManager.gameManager.target_list[i] - 1) + " " + (GameManager.gameManager.chaser_list[i] - 1));
+            //Debug.Log((GameManager.gameManager.target_list[i] - 1) + " " + (GameManager.gameManager.chaser_list[i] - 1));
             transform.GetChild(i).GetChild(0).GetChild(1).GetComponent<Image>().sprite = targets[GameManager.gameManager.target_list[i] - 1];
             transform.GetChild(i).GetChild(1).GetChild(1).GetComponent<Image>().sprite = chasers[GameManager.gameManager.chaser_list[i] - 1];
         }

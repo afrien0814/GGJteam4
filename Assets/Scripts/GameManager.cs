@@ -95,12 +95,12 @@ public class GameManager : MonoBehaviour
             ps.Add(pool[index]);
             pool.Remove(pool[index]);
         }
-        Debug.Log("" + ps[0] + ps[1] + ps[2] + ps[3]);
+        //Debug.Log("" + ps[0] + ps[1] + ps[2] + ps[3]);
         for (int i = 0; i < 4; i++)
         {
             players[ps[i]].targetId = target_list[ps[i]] = ps[(i + 1) % 4] + 1;
             players[ps[i]].chaserId = chaser_list[ps[i]] = ps[(i + 3) % 4] + 1;
-            Debug.Log("player " + (ps[i] + 1) + "'s target is " + target_list[ps[i]] + ", and chaser is " + chaser_list[ps[i]]);
+            //Debug.Log("player " + (ps[i] + 1) + "'s target is " + target_list[ps[i]] + ", and chaser is " + chaser_list[ps[i]]);
         }   
 
     }
