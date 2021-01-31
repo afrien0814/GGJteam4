@@ -118,31 +118,31 @@ MonoBehaviour:
     value: 0
   mixerRedOutRedIn:
     overrideState: 1
-    value: 50
+    value: 49.800938
   mixerRedOutGreenIn:
     overrideState: 1
-    value: 50
+    value: 50.199062
   mixerRedOutBlueIn:
     overrideState: 1
-    value: 50
+    value: 50.199062
   mixerGreenOutRedIn:
     overrideState: 1
-    value: 50
+    value: 50.199062
   mixerGreenOutGreenIn:
     overrideState: 1
-    value: 50
+    value: 49.800938
   mixerGreenOutBlueIn:
     overrideState: 1
-    value: 50
+    value: 50.199062
   mixerBlueOutRedIn:
     overrideState: 1
-    value: 50
+    value: 50.199062
   mixerBlueOutGreenIn:
     overrideState: 1
-    value: 50
+    value: 50.199062
   mixerBlueOutBlueIn:
     overrideState: 1
-    value: 50
+    value: 49.800938
   lift:
     overrideState: 0
     value: {x: 1, y: 1, z: 1, w: 0}

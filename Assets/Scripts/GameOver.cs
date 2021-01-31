@@ -72,6 +72,7 @@ public class GameOver : MonoBehaviour
         SE.clip = SE.GetComponent<SECtrl>().SE[1];
         SE.volume = 1;
         SE.Play();
+        FindObjectOfType<PPControl>().start_gray = true;
         yield return new WaitForSeconds(4f);
 
         transform.localScale = Vector3.one;
