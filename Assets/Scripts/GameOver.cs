@@ -74,6 +74,7 @@ public class GameOver : MonoBehaviour
         SE.Play();
         FindObjectOfType<PPControl>().start_gray = true;
         yield return new WaitForSeconds(4f);
+        FindObjectOfType<PPControl>().return_normal_color();
 
         transform.localScale = Vector3.one;
 
