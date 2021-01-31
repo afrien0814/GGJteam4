@@ -22,6 +22,7 @@ public class PlayerAnim : MonoBehaviour
         //SE = this.GetComponent<AudioSource>();
     }
 
+
     private void Update()
     {
         //idle or walk
