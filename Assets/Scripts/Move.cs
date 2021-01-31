@@ -36,8 +36,14 @@ public class Move : Item
         transform.GetChild(0).rotation = Quaternion.Euler(0, 0, 90 * (playerId - 1));
         sprite = transform.GetChild(1);
         sprite.rotation = Quaternion.Euler(0, 0, 90 * (playerId - 1));
-        facing_int = playerId;
         ItemInit();
+        GameManager.gameManager.callInit += MoveInit;
+    }
+
+    void MoveInit()
+    {
+        facing_int = playerId;
+        jumping = false;
     }
 
     // Update is called once per frame

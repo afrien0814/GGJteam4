@@ -61,12 +61,12 @@ public class Item : MonoBehaviour
     public void ItemInit()
     {
         if (!move) move = GetComponent<Move>();
-        GameManager.gameManager.callUI += RestartInit;
-        RestartInit("Timer");
+        GameManager.gameManager.callInit += RestartInit;
+        RestartInit();
     }
-    public void RestartInit(string callName)
+    public void RestartInit()
     {
-        if (callName != "Timer") return;
+        item_holding = item_type.nothing;
         target = GameObject.Find("player" + move.targetId).transform;
         chaser = GameObject.Find("player" + move.chaserId).transform;
     }

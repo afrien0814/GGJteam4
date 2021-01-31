@@ -13,6 +13,12 @@ public class Chaser : MonoBehaviour
         Move parent = transform.parent.GetComponent<Move>();
         playerId = parent.playerId;
         targetId = parent.targetId;
+        ChaserInit();
+    }
+
+    private void ChaserInit()
+    {
+        isChased = chasing = false;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
