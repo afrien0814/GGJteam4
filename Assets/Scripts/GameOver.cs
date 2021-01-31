@@ -8,12 +8,14 @@ public class GameOver : MonoBehaviour
     //AudioSource audioSource;
 
     AudioSource SE;
+    GameObject TBC;
     void Start()
     {
         GameManager.gameManager.callUI += OnGameEnd;
         transform.localScale = Vector2.zero;
         //audioSource = GetComponent<AudioSource>();
         SE = GameObject.Find("SE").GetComponent<AudioSource>();
+        TBC = this.transform.parent.GetChild(6).gameObject;
     }
 
     public void OnGameEnd(string callName)
@@ -57,6 +59,7 @@ public class GameOver : MonoBehaviour
     {
         SE.Stop();
         GameObject.Find("player" + GameManager.gameManager.winnerId.ToString()).transform.GetChild(0).GetComponent<Camera>().rect = former_rect;
+        GameObject.Find("player" + GameManager.gameManager.winnerId.ToString()).transform.GetChild(0).GetComponent<Camera>().orthographicSize = 3;
         GameObject.Find("player1").transform.GetChild(0).gameObject.SetActive(true);
         GameObject.Find("player2").transform.GetChild(0).gameObject.SetActive(true);
         GameObject.Find("player3").transform.GetChild(0).gameObject.SetActive(true);
@@ -73,7 +76,15 @@ public class GameOver : MonoBehaviour
         SE.volume = 1;
         SE.Play();
         FindObjectOfType<PPControl>().start_gray = true;
-        yield return new WaitForSeconds(4f);
+        TBC.SetActive(true);
+
+        for (int i = 0; i < 4; i++)
+        {
+            GameObject.Find("player" + GameManager.gameManager.winnerId.ToString()).transform.GetChild(0).GetComponent<Camera>().orthographicSize -= 0.05f;
+            yield return new WaitForSeconds(0.02f);
+        }
+        yield return new WaitForSeconds(3f);
+        TBC.SetActive(false);
         FindObjectOfType<PPControl>().return_normal_color();
 
         transform.localScale = Vector3.one;
