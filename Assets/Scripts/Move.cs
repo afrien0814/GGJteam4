@@ -104,6 +104,7 @@ public class Move : Item
         Debug.Log("jump");
         item_holding = item_type.nothing;
         gameObject.layer = LayerMask.NameToLayer("superPlayer");
+        dir = moveSpeed * facing;
         yield return new WaitForSeconds(0.4f);
         gameObject.layer = LayerMask.NameToLayer("Player");
         jumping = false;
@@ -124,7 +125,7 @@ public class Move : Item
         }
         if(other.layer== LayerMask.NameToLayer("Item"))
         {
-            if (item_holding != item_type.nothing) return;
+            //if (item_holding != item_type.nothing) return;
             item_holding = (item_type)System.Enum.Parse(typeof(item_type), other.name.Substring(0,4));
             GameManager.gameManager.ItemManage(playerId, (int)item_holding);
             Destroy(other);
