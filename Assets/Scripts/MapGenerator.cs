@@ -184,6 +184,30 @@ public class MapGenerator : MonoBehaviour
     //         }
     //     }
     // }
-
+    public Vector3 world_position_to_grid_index(Vector3 position){
+        return new Vector3(sub_get_grid_num_x(0,position.x,unit_scale.x),sub_get_grid_num_y(0,position.y,unit_scale.y),0);
+    }
+    int sub_get_grid_num_y(float deviation,float position,float scale){// for a specified dimansion
+        float min = 9999;int int_index = -1; //deviation => deviation from origin(world)
+        for (int i = 0; i < map.Count; i++) //position => world position
+        {                                   // scale => unit_scale
+            if( min > Mathf.Abs(position - (scale*i + deviation)) ){ 
+                min = Mathf.Abs(position - (scale*i + deviation));
+                int_index = i;
+            }
+        }
+        return int_index;
+    }
+    int sub_get_grid_num_x(float deviation,float position,float scale){// for a specified dimansion
+        float min = 9999;int int_index = -1; //deviation => deviation from origin(world)
+        for (int i = 0; i < map[0].Length; i++) //position => world position
+        {                                   // scale => unit_scale
+            if( min > Mathf.Abs(position - (scale*i + deviation)) ){ 
+                min = Mathf.Abs(position - (scale*i + deviation));
+                int_index = i;
+            }
+        }
+        return int_index;
+    }
 }
 
