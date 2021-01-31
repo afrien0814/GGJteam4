@@ -152,8 +152,10 @@ public class MapGenerator : MonoBehaviour
             }
             for (int i = 0; i < generated_item_list.Count; i++)
             {
-                if((generated_item_list[i].transform.position-gene_pos).magnitude <= GameManager.gameManager.minimum_radial_distance){
-                    check = false;
+                if(generated_item_list[i] != null){
+                    if((generated_item_list[i].transform.position-gene_pos).magnitude <= GameManager.gameManager.minimum_radial_distance){
+                        check = false;
+                    }
                 }
             }
         }while(!check && iter <500 ); // max => 500 times
