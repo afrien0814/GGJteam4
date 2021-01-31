@@ -12,7 +12,7 @@ public class Item : MonoBehaviour
         jump,
         trac,
         warn,
-        hide,
+        //hide,
         end
     }
     public item_type item_holding;
@@ -22,6 +22,8 @@ public class Item : MonoBehaviour
     private Move move;
     [SerializeField]
     private GameObject trackingArrowPrefab, warningArrowPrefab;
+    [SerializeField]
+    private GameObject hide_effect;
     private GameObject trackingArrow, warningArrow;
     private Vector3 trackingForward, warningForward;
     private bool tracking, warning;
@@ -58,6 +60,11 @@ public class Item : MonoBehaviour
         Destroy(arrow);
     }
 
+    /*void Hide()
+    {
+        Instantiate(hide_effect, transform);
+    }*/
+
     public void ItemInit()
     {
         if (!move) move = GetComponent<Move>();
@@ -74,6 +81,7 @@ public class Item : MonoBehaviour
     public void useItem()
     {
         if (item_holding == item_type.nothing) return;
+        //if (item_holding == item_type.hide) Hide();
         if (item_holding == item_type.dash) StartCoroutine(Dash());
         if (item_holding == item_type.jump)
         {

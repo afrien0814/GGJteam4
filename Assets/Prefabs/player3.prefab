@@ -178,6 +178,8 @@ MonoBehaviour:
     type: 3}
   warningArrowPrefab: {fileID: 9131346282004371143, guid: 116e58a825e833042b5f463a4b9fa191,
     type: 3}
+  hide_effect: {fileID: 1565185653827753546, guid: 533fb8c3e4d90d74aa0e2c6096d91821,
+    type: 3}
   spawnTime: 5
   playerId: 3
   targetId: 4
@@ -354,8 +356,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skill_info: {fileID: 4458381398804520375}
   chase_info: {fileID: 7219639391979620375}
-  hide_effect: {fileID: 1565185653827753546, guid: 533fb8c3e4d90d74aa0e2c6096d91821,
-    type: 3}
   sound: []
 --- !u!1 &8612489426745728153
 GameObject:

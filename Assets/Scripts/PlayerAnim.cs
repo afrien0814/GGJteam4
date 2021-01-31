@@ -10,7 +10,7 @@ public class PlayerAnim : MonoBehaviour
 
     public Move skill_info;
     public Chaser chase_info;
-    public GameObject hide_effect;
+    //public GameObject hide_effect;
     public AudioClip[] sound;
 
     Item.item_type former_item;
@@ -63,10 +63,7 @@ public class PlayerAnim : MonoBehaviour
         yield break;
     }
 
-    void Hide()
-    {
-        Instantiate(hide_effect, this.transform.parent);
-    }
+    
 
     void Scream()
     {
