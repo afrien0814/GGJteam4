@@ -38,12 +38,19 @@ public class Move : Item
         sprite.rotation = Quaternion.Euler(0, 0, 90 * (playerId - 1));
         ItemInit();
         GameManager.gameManager.callInit += MoveInit;
+        GameManager.gameManager.startGame += StartItem;
     }
 
     void MoveInit()
     {
         facing_int = playerId;
         jumping = false;
+    }
+    
+    void StartItem()
+    {
+        item_holding = item_type.trac;
+        useItem();
     }
 
     // Update is called once per frame

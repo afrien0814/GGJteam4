@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     public static GameManager gameManager;
     public Action<string> callUI;
     public Action<int, int> itemUpdate;
-    public Action callInit;
+    public Action callInit, startGame;
     public float countdownTimer = 3;
     [HideInInspector]
     public int timer;
@@ -53,6 +53,7 @@ public class GameManager : MonoBehaviour
         callUI?.Invoke("PlayerUI");
         callInit?.Invoke();
         for (timer = (int)countdownTimer; timer > -2; timer--) yield return new WaitForSeconds(1f);
+        startGame?.Invoke();
         MapGenerator.mapGenerator.init_generate_items();
         gaming = true;
     }

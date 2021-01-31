@@ -9,7 +9,7 @@ public class PlayerUI : MonoBehaviour
     Sprite[] targets = new Sprite[4], chasers = new Sprite[4], items;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         GameManager.gameManager.callUI += OnGameStart;
         GameManager.gameManager.itemUpdate += OnItemChanged;
