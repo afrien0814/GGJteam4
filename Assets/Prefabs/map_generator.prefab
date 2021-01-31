@@ -113,8 +113,9 @@ MonoBehaviour:
   - {fileID: 7531538226121884600, guid: 5a7bb5d2a77c8894993260458f404755, type: 3}
   - {fileID: 7531538226121884600, guid: ace363961284d794b87362b016f9bda5, type: 3}
   - {fileID: 7531538226121884600, guid: 1375b93c900af464d966ca01b20b561f, type: 3}
+  - {fileID: 7531538226121884600, guid: cb8e208c5c10d184488a13f9128b6639, type: 3}
   generated_item_list: []
-  generated_items_amount: 06000000050000000200000009000000
+  generated_items_amount: 0600000005000000020000000900000003000000
   refill_timer: 10
   max_amount: 4
   specify_map_id: -1

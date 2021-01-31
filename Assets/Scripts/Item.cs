@@ -12,12 +12,15 @@ public class Item : MonoBehaviour
         jump,
         trac,
         warn,
-        //hide,
+        hide,
         end
     }
     public item_type item_holding;
     public virtual IEnumerator Dash() { yield return 0; }
     public virtual bool Jump() { return false; }
+
+    public GameObject hiding_frame;
+
     private Transform target, chaser;
     private Move move;
     [SerializeField]
@@ -60,10 +63,26 @@ public class Item : MonoBehaviour
         Destroy(arrow);
     }
 
-    /*void Hide()
+    void Hide()
     {
         Instantiate(hide_effect, transform);
-    }*/
+        StartCoroutine(Hiding());
+    }
+    IEnumerator Hiding()
+    {
+        SpriteRenderer tmp = this.transform.GetChild(1).GetComponent<SpriteRenderer>();
+        tmp.color = new Color(1, 1, 1, 0);
+        hiding_frame.SetActive(true);
+        yield return new WaitForSeconds(5f);
+        hiding_frame.SetActive(false);
+        for (int i=0; i<10; i++)
+        {
+            tmp.color += new Color(0, 0, 0, 0.1f);
+            yield return null;
+        }
+        tmp.color = new Color(1, 1, 1, 1);
+        yield break;
+    }
 
     public void ItemInit()
     {
@@ -81,7 +100,7 @@ public class Item : MonoBehaviour
     public void useItem()
     {
         if (item_holding == item_type.nothing) return;
-        //if (item_holding == item_type.hide) Hide();
+        if (item_holding == item_type.hide) Hide();
         if (item_holding == item_type.dash) StartCoroutine(Dash());
         if (item_holding == item_type.jump)
         {
